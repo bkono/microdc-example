@@ -1,0 +1,63 @@
+version: '2'
+
+networks:
+  example:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+
+services:
+  consul:
+    image: consul:0.9.3
+    networks:
+      example:
+        ipv4_address: 172.20.0.2
+    environment: 
+      CONSUL_ALLOW_PRIVILEGED_PORTS: ""
+    ports:
+      - "8300:8300"
+      - "8301:8301"
+      - "8301:8301/udp"
+      - "8302:8302"
+      - "8302:8302/udp"
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53"
+      - "8600:53/udp"
+      - "53:53"
+      - "53:53/udp"
+    command: ['agent', '-server', '-bootstrap-expect', '1', 
+              '-client', '0.0.0.0', '-advertise', '172.20.0.1',
+              '-dns-port', '53', '-recursor', '8.8.8.8',
+              '-ui']
+  srv:
+    build: ./srv
+    networks:
+      - example
+    dns: 172.20.0.1
+    depends_on:
+      - consul
+    command: ['-registry_address', 'consul.service.consul']
+
+  api:
+    build: ./api
+    networks:
+      - example
+    dns: 172.20.0.1
+    depends_on:
+      - consul
+    command: ['-registry_address', 'consul.service.consul']
+
+  microapi:
+    image: microhq/micro
+    networks:
+      - example
+    dns: 172.20.0.1
+    depends_on:
+      - consul
+      - api
+      - srv
+    ports:
+      - "8090:8090"
+    command: ['-registry_address', 'consul.service.consul', 'api','-address', '0.0.0.0:8090']
