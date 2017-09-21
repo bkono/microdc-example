@@ -4,14 +4,14 @@ This repo exists to answer a few questions I'm frequently asked regarding usage 
 builds, docker-compose, consul, and go-micro. Configuration is as follows:
 
 - **api** and **srv** have multi-step build files to compile in a container, and end with a minimal
-    surface area (and size) container. Note: Generally I use a make file and arguments to dry up
+    surface area (and size) container. Note: Generally I use a Makefile and arguments to dry up
     these files, but functionally it is the same process.
 - Addition of [dep](https://github.com/golang/dep) for dependency resolution during container
     compilation. This is just an example for an approach that does not depend on committing the
     vendor directory, which I'm personally still on the fence about.
 - **compose file** Root level docker-compose file for starting the full suite.
-- **compose file** Integrates [consul](https://github.com/hashicorp/consul) *without* the use of host
-- mode networking or dev mode. This is one of the primary questions I field on a regular basis.
+- **compose file** Integrates [consul](https://github.com/hashicorp/consul) *without* the use of host 
+    mode networking or dev mode. This is one of the primary questions I field on a regular basis.
 - **compose file** DNS resolution through consul for all apps. This allows a little inception of
     configuring the go-micro `-registry_address` to be `consul.service.consul` and knowing it will
     all Just Work™.
@@ -23,7 +23,6 @@ This example uses the api, srv, and cli components from the official [micro gree
 - **srv** - an RPC greeter service
 - **cli** - an RPC client that calls the service once
 - **api** - examples of RPC API and RESTful API
-- **web** - how to use go-web to write web services
 
 ## Run the suite
 
@@ -46,13 +45,10 @@ based testing.
 
 Log samples for the above request:
 ```
-microapi: 
 microapi_1  | 172.20.0.1 - - [21/Sep/2017:17:28:33 +0000] "GET /greeter/say/hello?name=John HTTP/1.1" 200 24 "" "curl/7.54.0"
 
-api:
 api_1       | 2017/09/21 17:28:33 Received Say.Hello API request
 
-srv:
 srv_1       | 2017/09/21 17:28:33 Received Say.Hello request
 ```
 
