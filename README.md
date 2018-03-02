@@ -3,7 +3,7 @@
 This repo exists to answer a few questions I'm frequently asked regarding usage of multi-step
 builds, docker-compose, consul, and go-micro. Configuration is as follows:
 
-- **api** and **srv** have multi-step build files to compile in a container, and end with a minimal
+- **api**, **greeter**, and **vip** have multi-step build files to compile in a container, and end with a minimal
     surface area (and size) container. Note: Generally I use a Makefile and arguments to dry up
     these files, but functionally it is the same process.
 - Addition of [dep](https://github.com/golang/dep) for dependency resolution during container
@@ -15,12 +15,14 @@ builds, docker-compose, consul, and go-micro. Configuration is as follows:
 - **compose file** DNS resolution through consul for all apps. This allows a little inception of
     configuring the go-micro `-registry_address` to be `consul.service.consul` and knowing it will
     all Just Work™.
+- **recent addition** srv -> srv communication example via greeter calling vip.
 
-This example uses the api, srv, and cli components from the official [micro greeter example](https://github.com/micro/examples/tree/master/greeter). For details on each component, please review the original.
+This example uses the api, parts of srv, and cli components from the official [micro greeter example](https://github.com/micro/examples/tree/master/greeter). For details on each component, please review the original.
 
 ## Contents
 
-- **srv** - an RPC greeter service
+- **srv** - an RPC greeter service that consumes vip
+- **vip** - another RPC service to demo srv -> srv communication
 - **cli** - an RPC client that calls the service once
 - **api** - examples of RPC API and RESTful API
 
@@ -50,6 +52,9 @@ microapi_1  | 172.20.0.1 - - [21/Sep/2017:17:28:33 +0000] "GET /greeter/say/hell
 api_1       | 2017/09/21 17:28:33 Received Say.Hello API request
 
 srv_1       | 2017/09/21 17:28:33 Received Say.Hello request
+
+vip_1       | 2017/09/21 17:28:23 Received VIP.CheckName request
+vip_1       | 2017/09/21 17:28:23 is vip check false
 ```
 
 consul is also launched with a ui, and bound to the host at 8500. Navigate to
