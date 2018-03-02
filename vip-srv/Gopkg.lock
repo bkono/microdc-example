@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  branch = "bk_srv_comms"
-  name = "github.com/bkono/microdc-example"
-  packages = ["vip-srv/proto/vip"]
-  revision = "3a870e77ee3c8fb34f27c4efc0a5f7f7358d8a89"
-
-[[projects]]
   name = "github.com/go-log/log"
   packages = [
     ".",
@@ -17,10 +11,10 @@
   version = "v0.1.0"
 
 [[projects]]
-  branch = "master"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
-  revision = "130e6b02ab059e7b717a096f397c5b60111cae74"
+  revision = "925541529c1fa6821df4e44ce2723319eb2be768"
+  version = "v1.0.0"
 
 [[projects]]
   name = "github.com/hashicorp/consul"
@@ -28,14 +22,14 @@
     "api",
     "watch"
   ]
-  revision = "112c0603d3d6fb23ab5f15e8fdb1a761da8eaf9a"
-  version = "v0.9.3"
+  revision = "9a494b5fb9c86180a5702e29c485df1507a47198"
+  version = "v1.0.6"
 
 [[projects]]
   branch = "master"
   name = "github.com/hashicorp/go-cleanhttp"
   packages = ["."]
-  revision = "3573b8b52aa7b37b9358d966a898feb387f62437"
+  revision = "d5fe4b57a186c716b0e00b8c301cbd9b4182694d"
 
 [[projects]]
   branch = "master"
@@ -88,8 +82,14 @@
     "transport/codec",
     "transport/http"
   ]
-  revision = "d29b5e2fab07d53e5067562809cc7fe0b43b67c2"
-  version = "v0.1.4"
+  revision = "d0d9582b81e3944edca78b1db6ed9619d0729cee"
+  version = "v0.4.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/micro/go-rcache"
+  packages = ["."]
+  revision = "c4d553f1c37857cdc6d5385e83b6946deed488e4"
 
 [[projects]]
   branch = "master"
@@ -105,13 +105,13 @@
     "lib/net",
     "lib/tls"
   ]
-  revision = "d090a0434084e482de5c73e8892b56d291881ec9"
+  revision = "92560176a0866e3584c13e7ff7d4747c5bf793f7"
 
 [[projects]]
-  branch = "master"
   name = "github.com/miekg/dns"
   packages = ["."]
-  revision = "689d334b0197696eac0afdaa67224aca9ce93eff"
+  revision = "5364553f1ee9cddc7ac8b62dce148309c386695b"
+  version = "v1.0.4"
 
 [[projects]]
   branch = "master"
@@ -124,6 +124,12 @@
   name = "github.com/mitchellh/hashstructure"
   packages = ["."]
   revision = "2bca23e0e452137f789efbc8610126fd8b94f73b"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mitchellh/mapstructure"
+  packages = ["."]
+  revision = "00c29f56e2386353d58c599509e8dc3801b0d716"
 
 [[projects]]
   name = "github.com/pborman/uuid"
@@ -139,6 +145,15 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/crypto"
+  packages = [
+    "ed25519",
+    "ed25519/internal/edwards25519"
+  ]
+  revision = "91a49db82a88618983a78a06c1cbd4e00ab749ab"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/net"
   packages = [
     "bpf",
@@ -148,11 +163,11 @@
     "ipv4",
     "ipv6"
   ]
-  revision = "b60f3a92103dfd93dfcb900ec77c6d0643510868"
+  revision = "22ae77b79946ea320088417e4d50825671d82d57"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "cc59595beaadaf18f03976088b975c1c5a4370a7fc9b2f21d2b51fb5b3585868"
+  inputs-digest = "bd02e1b05fc5481bbeb139c4896741c0e3428a8f41a0c8266a3e1cd4c9e20c77"
   solver-name = "gps-cdcl"
   solver-version = 1

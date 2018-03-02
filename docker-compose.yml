@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 networks:
   example:
@@ -33,6 +33,16 @@ services:
               '-ui']
   srv:
     build: ./srv
+    networks:
+      - example
+    dns: 172.20.0.1
+    depends_on:
+      - consul
+      - vip
+    command: ['-registry_address', 'consul.service.consul']
+
+  vip:
+    build: ./vip-srv
     networks:
       - example
     dns: 172.20.0.1
