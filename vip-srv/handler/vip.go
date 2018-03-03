@@ -10,8 +10,8 @@ import (
 
 type vipHandler struct{}
 
-func (v *vipHandler) CheckVIP(ctx context.Context, req *pb.VIPRequest, rsp *pb.VIPResponse) error {
-	log.Print("Received CheckVIP request, checking vip")
+func (v *vipHandler) CheckName(ctx context.Context, req *pb.CheckNameRequest, rsp *pb.CheckNameResponse) error {
+	log.Print("Received VIP.CheckName request")
 
 	rsp.IsVip = rand.Intn(10) > 5
 	log.Println("is vip check", rsp.IsVip)

@@ -31,8 +31,8 @@ services:
               '-client', '0.0.0.0', '-advertise', '172.20.0.1',
               '-dns-port', '53', '-recursor', '8.8.8.8',
               '-ui']
-  srv:
-    build: ./srv
+  greeter:
+    build: ./greeter-srv
     networks:
       - example
     dns: 172.20.0.1
@@ -67,7 +67,8 @@ services:
     depends_on:
       - consul
       - api
-      - srv
+      - greeter
+      - vip
     ports:
       - "8090:8090"
     command: ['-registry_address', 'consul.service.consul', 'api','-address', '0.0.0.0:8090']

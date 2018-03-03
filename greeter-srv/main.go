@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	hello "github.com/bkono/microdc-example/srv/proto/hello"
+	hello "github.com/bkono/microdc-example/greeter-srv/proto/hello"
 	vip "github.com/bkono/microdc-example/vip-srv/proto/vip"
 	"github.com/micro/go-micro"
 
@@ -17,15 +17,15 @@ var (
 	vipGreet = "Well hello, %s. Thanks for being a VIP!"
 )
 
-type Say struct {
+type say struct {
 	vipcl vip.VIPClient
 }
 
-func (s *Say) Hello(ctx context.Context, req *hello.Request, rsp *hello.Response) error {
+func (s *say) Hello(ctx context.Context, req *hello.Request, rsp *hello.Response) error {
 	log.Print("Received Say.Hello request, checking vip")
 
-	viprsp, err := s.vipcl.CheckVIP(ctx, &vip.VIPRequest{Name: req.Name})
-	log.Println(viprsp, err)
+	viprsp, err := s.vipcl.CheckName(ctx, &vip.CheckNameRequest{Name: req.Name})
+	log.Println("vip.CheckName called", viprsp, err)
 
 	if viprsp.IsVip {
 		rsp.Msg = fmt.Sprintf(vipGreet, req.Name)
@@ -37,7 +37,7 @@ func (s *Say) Hello(ctx context.Context, req *hello.Request, rsp *hello.Response
 }
 
 func NewSayHandler(client vip.VIPClient) hello.SayHandler {
-	return &Say{client}
+	return &say{client}
 }
 
 func main() {

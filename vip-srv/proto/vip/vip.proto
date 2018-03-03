@@ -3,13 +3,13 @@ syntax = "proto3";
 package go.micro.srv.vip;
 
 service VIP {
-	rpc CheckVIP(VIPRequest) returns (VIPResponse) {}
+    rpc CheckName (CheckNameRequest) returns (CheckNameResponse) {}
 }
 
-message VIPRequest {
+message CheckNameRequest {
 	string name = 1;
 }
 
-message VIPResponse {
+message CheckNameResponse {
 	bool is_vip = 1;
 }

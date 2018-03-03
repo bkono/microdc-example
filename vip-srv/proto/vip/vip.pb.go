@@ -8,8 +8,8 @@ It is generated from these files:
 	vip.proto
 
 It has these top-level messages:
-	VIPRequest
-	VIPResponse
+	CheckNameRequest
+	CheckNameResponse
 */
 package go_micro_srv_vip
 
@@ -34,32 +34,32 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type VIPRequest struct {
+type CheckNameRequest struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 }
 
-func (m *VIPRequest) Reset()                    { *m = VIPRequest{} }
-func (m *VIPRequest) String() string            { return proto.CompactTextString(m) }
-func (*VIPRequest) ProtoMessage()               {}
-func (*VIPRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (m *CheckNameRequest) Reset()                    { *m = CheckNameRequest{} }
+func (m *CheckNameRequest) String() string            { return proto.CompactTextString(m) }
+func (*CheckNameRequest) ProtoMessage()               {}
+func (*CheckNameRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *VIPRequest) GetName() string {
+func (m *CheckNameRequest) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-type VIPResponse struct {
+type CheckNameResponse struct {
 	IsVip bool `protobuf:"varint,1,opt,name=is_vip,json=isVip" json:"is_vip,omitempty"`
 }
 
-func (m *VIPResponse) Reset()                    { *m = VIPResponse{} }
-func (m *VIPResponse) String() string            { return proto.CompactTextString(m) }
-func (*VIPResponse) ProtoMessage()               {}
-func (*VIPResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+func (m *CheckNameResponse) Reset()                    { *m = CheckNameResponse{} }
+func (m *CheckNameResponse) String() string            { return proto.CompactTextString(m) }
+func (*CheckNameResponse) ProtoMessage()               {}
+func (*CheckNameResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
-func (m *VIPResponse) GetIsVip() bool {
+func (m *CheckNameResponse) GetIsVip() bool {
 	if m != nil {
 		return m.IsVip
 	}
@@ -67,8 +67,8 @@ func (m *VIPResponse) GetIsVip() bool {
 }
 
 func init() {
-	proto.RegisterType((*VIPRequest)(nil), "go.micro.srv.vip.VIPRequest")
-	proto.RegisterType((*VIPResponse)(nil), "go.micro.srv.vip.VIPResponse")
+	proto.RegisterType((*CheckNameRequest)(nil), "go.micro.srv.vip.CheckNameRequest")
+	proto.RegisterType((*CheckNameResponse)(nil), "go.micro.srv.vip.CheckNameResponse")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -79,7 +79,7 @@ var _ server.Option
 // Client API for VIP service
 
 type VIPClient interface {
-	CheckVIP(ctx context.Context, in *VIPRequest, opts ...client.CallOption) (*VIPResponse, error)
+	CheckName(ctx context.Context, in *CheckNameRequest, opts ...client.CallOption) (*CheckNameResponse, error)
 }
 
 type vIPClient struct {
@@ -100,9 +100,9 @@ func NewVIPClient(serviceName string, c client.Client) VIPClient {
 	}
 }
 
-func (c *vIPClient) CheckVIP(ctx context.Context, in *VIPRequest, opts ...client.CallOption) (*VIPResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "VIP.CheckVIP", in)
-	out := new(VIPResponse)
+func (c *vIPClient) CheckName(ctx context.Context, in *CheckNameRequest, opts ...client.CallOption) (*CheckNameResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "VIP.CheckName", in)
+	out := new(CheckNameResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -113,7 +113,7 @@ func (c *vIPClient) CheckVIP(ctx context.Context, in *VIPRequest, opts ...client
 // Server API for VIP service
 
 type VIPHandler interface {
-	CheckVIP(context.Context, *VIPRequest, *VIPResponse) error
+	CheckName(context.Context, *CheckNameRequest, *CheckNameResponse) error
 }
 
 func RegisterVIPHandler(s server.Server, hdlr VIPHandler, opts ...server.HandlerOption) {
@@ -124,22 +124,22 @@ type VIP struct {
 	VIPHandler
 }
 
-func (h *VIP) CheckVIP(ctx context.Context, in *VIPRequest, out *VIPResponse) error {
-	return h.VIPHandler.CheckVIP(ctx, in, out)
+func (h *VIP) CheckName(ctx context.Context, in *CheckNameRequest, out *CheckNameResponse) error {
+	return h.VIPHandler.CheckName(ctx, in, out)
 }
 
 func init() { proto.RegisterFile("vip.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 154 bytes of a gzipped FileDescriptorProto
+	// 157 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2c, 0xcb, 0x2c, 0xd0,
 	0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x48, 0xcf, 0xd7, 0xcb, 0xcd, 0x4c, 0x2e, 0xca, 0xd7,
-	0x2b, 0x2e, 0x2a, 0xd3, 0x2b, 0xcb, 0x2c, 0x50, 0x52, 0xe0, 0xe2, 0x0a, 0xf3, 0x0c, 0x08, 0x4a,
-	0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x12, 0xe2, 0x62, 0xc9, 0x4b, 0xcc, 0x4d, 0x95, 0x60, 0x54,
-	0x60, 0xd4, 0xe0, 0x0c, 0x02, 0xb3, 0x95, 0x54, 0xb8, 0xb8, 0xc1, 0x2a, 0x8a, 0x0b, 0xf2, 0xf3,
-	0x8a, 0x53, 0x85, 0x44, 0xb9, 0xd8, 0x32, 0x8b, 0xe3, 0xcb, 0x32, 0x0b, 0xc0, 0x8a, 0x38, 0x82,
-	0x58, 0x33, 0x8b, 0xc3, 0x32, 0x0b, 0x8c, 0x02, 0xb8, 0x98, 0xc3, 0x3c, 0x03, 0x84, 0x3c, 0xb9,
-	0x38, 0x9c, 0x33, 0x52, 0x93, 0xb3, 0x41, 0x6c, 0x19, 0x3d, 0x74, 0xdb, 0xf4, 0x10, 0x56, 0x49,
-	0xc9, 0xe2, 0x90, 0x85, 0x58, 0xa3, 0xc4, 0x90, 0xc4, 0x06, 0x76, 0xb2, 0x31, 0x20, 0x00, 0x00,
-	0xff, 0xff, 0x54, 0x0d, 0xb5, 0xa5, 0xbf, 0x00, 0x00, 0x00,
+	0x2b, 0x2e, 0x2a, 0xd3, 0x2b, 0xcb, 0x2c, 0x50, 0x52, 0xe3, 0x12, 0x70, 0xce, 0x48, 0x4d, 0xce,
+	0xf6, 0x4b, 0xcc, 0x4d, 0x0d, 0x4a, 0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x12, 0xe2, 0x62, 0xc9,
+	0x4b, 0xcc, 0x4d, 0x95, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x02, 0xb3, 0x95, 0xb4, 0xb8, 0x04,
+	0x91, 0xd4, 0x15, 0x17, 0xe4, 0xe7, 0x15, 0xa7, 0x0a, 0x89, 0x72, 0xb1, 0x65, 0x16, 0xc7, 0x97,
+	0x65, 0x16, 0x80, 0x95, 0x72, 0x04, 0xb1, 0x66, 0x16, 0x87, 0x65, 0x16, 0x18, 0xc5, 0x72, 0x31,
+	0x87, 0x79, 0x06, 0x08, 0x85, 0x71, 0x71, 0xc2, 0xb5, 0x08, 0x29, 0xe9, 0xa1, 0x5b, 0xad, 0x87,
+	0x6e, 0xaf, 0x94, 0x32, 0x5e, 0x35, 0x10, 0x3b, 0x95, 0x18, 0x92, 0xd8, 0xc0, 0x7e, 0x31, 0x06,
+	0x04, 0x00, 0x00, 0xff, 0xff, 0xa7, 0x78, 0x56, 0x75, 0xd8, 0x00, 0x00, 0x00,
 }

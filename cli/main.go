@@ -7,7 +7,7 @@ import (
 	"github.com/micro/go-micro/cmd"
 	"github.com/micro/go-micro/metadata"
 
-	hello "github.com/micro/examples/greeter/srv/proto/hello"
+	hello "github.com/bkono/microdc-example/greeter-srv/proto/hello"
 
 	"golang.org/x/net/context"
 )
