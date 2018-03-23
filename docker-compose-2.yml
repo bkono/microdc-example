@@ -1,0 +1,13 @@
+version: '3'
+
+networks:
+  microdcexample_example:
+    external: true
+
+services:
+  api:
+    build: ./api
+    networks:
+      - microdcexample_example
+    dns: 172.20.0.1
+    command: ['-registry_address', 'consul.service.consul']
